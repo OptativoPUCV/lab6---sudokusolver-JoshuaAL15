@@ -44,7 +44,37 @@ void print_node(Node* n){
 }
 
 int is_valid(Node* n){
-
+   for (int row = 0; row < 9; row++) {
+        int rowCheck[10] = {0};
+        int colCheck[10] = {0};
+        for (int col = 0; col < 9; col++) {
+      
+            if (n->sudo[row][col] != 0) {
+                if (rowCheck[n->sudo[row][col]] == 1) return 0;
+                rowCheck[n->sudo[row][col]] = 1;
+            }
+            
+            if (n->sudo[col][row] != 0) {
+                if (colCheck[n->sudo[col][row]] == 1) return 0;
+                colCheck[n->sudo[col][row]] = 1;
+            }
+        }
+    }
+    
+    for (int startRow = 0; startRow < 9; startRow += 3) {
+        for (int startCol = 0; startCol < 9; startCol += 3) {
+            int gridCheck[10] = {0};
+            for (int row = 0; row < 3; row++) {
+                for (int col = 0; col < 3; col++) {
+                    int num = n->sudo[startRow + row][startCol + col];
+                    if (num != 0) {
+                        if (gridCheck[num] == 1) return 0;
+                        gridCheck[num] = 1;
+                    }
+                }
+            }
+        }
+    }
     return 1;
 }
 
@@ -62,8 +92,8 @@ List* get_adj_nodes(Node* n){
                         pushBack(list, newNode);
                     }
                 }
-                n->sudo[row][col] = 0; // Reset cell
-                return list; // Only generate nodes for the first empty cell found
+                n->sudo[row][col] = 0; 
+                return list; 
             }
         }
     }
