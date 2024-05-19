@@ -105,32 +105,35 @@ List* get_adj_nodes(Node* n){
 int is_final(Node* n){
     for (int row = 0; row < 9; row++) {
         for (int col = 0; col < 9; col++) {
-            if (n->sudo[row][col] == 0) return 0;
+            if (n->sudo[row][col] == 0) {
+                return 0;
+            }
         }
     }
-    return is_valid(n);
+    return 1;
 }
 
 Node* DFS(Node* initial, int* cont){
-  Stack* stack = createStack();
+   Stack* stack = createStack();
     push(stack, initial);
 
     while (!is_empty(stack)) {
-        Node* current = pop(stack);
-        (*cont)++;
+        Node* current = top(stack);
+        pop(stack);
 
         if (is_final(current)) {
             return current;
         }
 
         List* adjNodes = get_adj_nodes(current);
-        ListNode* adjNode = first(adjNodes);
-        while (adjNode) {
-            push(stack, adjNode->data);
+        Node* adjNode = first(adjNodes);
+
+        while (adjNode != NULL) {
+            push(stack, adjNode);
             adjNode = next(adjNodes);
         }
 
-        destroyList(adjNodes);
+        (*cont)++;
     }
 
     return NULL;
