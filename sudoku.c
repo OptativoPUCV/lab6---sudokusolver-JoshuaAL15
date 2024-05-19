@@ -50,7 +50,24 @@ int is_valid(Node* n){
 
 
 List* get_adj_nodes(Node* n){
-    List* list=createList();
+    List* list = createList();
+
+    for (int row = 0; row < 9; row++) {
+        for (int col = 0; col < 9; col++) {
+            if (n->sudo[row][col] == 0) {
+                for (int num = 1; num <= 9; num++) {
+                    n->sudo[row][col] = num;
+                    if (is_valid(n)) {
+                        Node* newNode = copy(n);
+                        pushBack(list, newNode);
+                    }
+                }
+                n->sudo[row][col] = 0; // Reset cell
+                return list; // Only generate nodes for the first empty cell found
+            }
+        }
+    }
+
     return list;
 }
 
