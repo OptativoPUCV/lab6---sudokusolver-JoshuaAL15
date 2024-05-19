@@ -20,3 +20,31 @@ Sun 19 May 2024 11:22:25 PM UTC:
  tests:  6|2
 total_score: 45/70
 d49bce7
+Sun 19 May 2024 11:24:25 PM UTC: 
+ sudoku.c | 32 ++++++++++++++++++++++++++++++++
+ 1 file changed, 32 insertions(+)
+In file included from test.c:5:
+sudoku.c: In function ‘DFS’:
+sudoku.c:119:25: error: void value not ignored as it ought to be
+  119 |         Node* current = pop(stack);
+      |                         ^~~
+sudoku.c:127:9: error: unknown type name ‘ListNode’
+  127 |         ListNode* adjNode = first(adjNodes);
+      |         ^~~~~~~~
+sudoku.c:129:32: error: request for member ‘data’ in something not a structure or union
+  129 |             push(stack, adjNode->data);
+      |                                ^~
+sudoku.c:133:9: error: implicit declaration of function ‘destroyList’ [-Werror=implicit-function-declaration]
+  133 |         destroyList(adjNodes);
+      |         ^~~~~~~~~~~
+test.c: At top level:
+test.c:245:5: error: redefinition of ‘main’
+  245 | int main( int argc, char *argv[] ) {
+      |     ^~~~
+In file included from test.c:5:
+sudoku.c:139:5: note: previous definition of ‘main’ with type ‘int(int,  char **)’
+  139 | int main(int argc, char *argv[]) {
+      |     ^~~~
+cc1: all warnings being treated as errors
+Compilation failed
+8d592d3
