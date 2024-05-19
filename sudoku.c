@@ -103,7 +103,12 @@ List* get_adj_nodes(Node* n){
 
 
 int is_final(Node* n){
-    return 0;
+    for (int row = 0; row < 9; row++) {
+        for (int col = 0; col < 9; col++) {
+            if (n->sudo[row][col] == 0) return 0;
+        }
+    }
+    return is_valid(n);
 }
 
 Node* DFS(Node* initial, int* cont){
